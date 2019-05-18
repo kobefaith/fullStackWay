@@ -5,7 +5,8 @@
 这里有前端基础入门知识，有常用的实战技巧，有vue/React/ReactNative等前端框架的实战和原理，也有Node/Koa/Egg等js后端框架的实战。
 
 想学习更多的前端和全栈知识，可以关注微信公众号:飞语者说 ，也可以加入知识星球： 飞语者说。
-![avatar](https://mmbiz.qpic.cn/mmbiz_jpg/gg5DfJI3s9g0VMNoWNcbVnFa2WicACCqtvVG9ySkUFngJXTyBibtfE0XUriauG7UlnNGjoSiaqRv98Tala8TM02VKA/0?wx_fmt=jpeg)
-![avatar](https://mmbiz.qpic.cn/mmbiz_jpg/gg5DfJI3s9hzxqqLNZfCScgVadxqCq8ibp0LK6ibjRcOlQYVIbHDGy4wpJqfPzUWw6Q8niaOiaYWELUQ6NZWau45HQ/0?wx_fmt=jpeg)
+<img src="https://mmbiz.qpic.cn/mmbiz_jpg/gg5DfJI3s9g0VMNoWNcbVnFa2WicACCqtvVG9ySkUFngJXTyBibtfE0XUriauG7UlnNGjoSiaqRv98Tala8TM02VKA/0?wx_fmt=jpeg" width=256 height=256 />
+<img src="https://mmbiz.qpic.cn/mmbiz_jpg/gg5DfJI3s9hzxqqLNZfCScgVadxqCq8ibp0LK6ibjRcOlQYVIbHDGy4wpJqfPzUWw6Q8niaOiaYWELUQ6NZWau45HQ/0?wx_fmt=jpeg" width=256 height=256 />
+
 
 
