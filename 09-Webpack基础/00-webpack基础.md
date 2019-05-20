@@ -223,6 +223,14 @@ plugins: [
   new webpack.HotModuleReplacementPlugin(),
 ]
 ```
+ 在实际的使用中，webpack 会根据环境采用不用的配置文件，可以在package.json中用script来定义。
+ 
+ ```
+ "scripts": {
+    "dev": "webpack --config ./webpack.dev.config.js",
+    "prod": "webpack --config ./webpack.prod.config.js"
+  },
+  ```
 ## 总结
 本文主要介绍了 Webpack 中四大核心概念，即入口文件、输出文件、Loader、Plugin 等，并给出了实际配置的代码示例。看完本篇相信你已经对webpack有了基本的了解，下一步我们会进入基本使用的环节。
 
