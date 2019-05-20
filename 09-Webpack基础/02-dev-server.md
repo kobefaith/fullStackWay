@@ -62,6 +62,21 @@ server.listen(8080, '127.0.0.1', () => {
   console.log('Starting server on http://localhost:8080');
 });
 ```
+##使用方法
+安装 webpack-dev-server
+
+```
+npm install webpack-dev-server -g
+```
+如果想用 npm start 来启动dev server的话，需要配置script。
+
+```
+"scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --inline --hot --port 3000 --content-base public",    
+  },
+```
+其中 --hot是开启热更新模式，在代码变化的时候重新打包，并刷新浏览器中的页面。实现的原理是使用websocket 来实现页面和dev server的通信，然后在代码发生变化的时候，通过websocket来通知页面重新加载。
 ## 总结
-本文讲解了webpack-dev-server 中一些核心的概念和主要配置选项，如 contentBase、publicPath、proxy 代理、historyApiFallback、lazyLoad 等。
+本文讲解了webpack-dev-server 中一些核心的概念和主要配置选项，如 contentBase、publicPath、proxy 代理、historyApiFallback、lazyLoad 等。另外介绍了基本的使用方法和热更新的原理。
 
