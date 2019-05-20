@@ -1,5 +1,5 @@
 ## 前言
-本文主要讲解webpack dev server的使用实例和原理。
+本文主要讲解webpack dev server的使用实例。
 ##基本概念
 ContentBase：指定请求的资源路径。也就是告诉服务器从哪里提供内容。默认是运行webpack-dev-server的路径。  
 热加载：为 webpack-dev-server 开启 HMR 模式只需要在命令行中添加--hot，它会将 HotModuleReplacementPlugin 这个插件添加到 webpack 的配置中去。  
