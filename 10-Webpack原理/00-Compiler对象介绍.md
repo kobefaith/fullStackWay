@@ -970,6 +970,7 @@ compilation:    { buildModule:
      callAsync: [Function: lazyCompileHook],
      _x: undefined } }
 ```
+demo代码：
 ##  总结
 
 本文讲解了compiler 和compilation对象的概念和钩子函数，这些内容对webpack插件开发是很有用的，在后续的内容中我们将继续讲解这些钩子函数在插件开发中的应用，欢迎关注。
