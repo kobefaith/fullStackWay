@@ -153,10 +153,10 @@ Compilation finished!
 /***/ })
 
 ```
-我们看到 name已经被替换为Alice，说明loader运行成功。本demo使用的webpack是3.8.1,不同版本配置略有差异，demo地址：
+我们看到 name已经被替换为Alice，说明loader运行成功。本demo使用的webpack是3.8.1,不同版本配置略有差异，demo地址：https://github.com/kobefaith/fullStackWay/tree/master/10-Webpack原理/loader_demo
 
 ## 总结
-
+本文主要讲了 webpack loader的基础知识和开发方法，并做了一个简单的demo。
 
 
 
