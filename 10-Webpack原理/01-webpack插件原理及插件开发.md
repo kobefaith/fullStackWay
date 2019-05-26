@@ -101,7 +101,6 @@ HelloAsyncPlugin.prototype.apply = function(compiler) {
 
 module.exports = HelloAsyncPlugin;
 ```
-插件的类型：
 demo代码的路径：https://github.com/kobefaith/fullStackWay/tree/master/10-Webpack原理/compiler_demo
 ## 总结
 本文讲解了webpack插件的基本原理，同时给了一个插件的demo。如果想继续深入了解webpack的内容，欢迎继续关注本人的github：https://github.com/kobefaith/fullStackWay
