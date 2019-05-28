@@ -31,3 +31,17 @@ yarn global add @vue/cli
 vue create my-project
 ```
 ## vue基本概念
+vue采用模版的语法来渲染页面：
+  
+```
+<div id="app">
+  {{ message }}
+</div>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+```
