@@ -45,3 +45,129 @@ var app = new Vue({
   }
 })
 ```
+切换元素渲染：  
+
+```
+<div id="app-3">
+  <p v-if="seen">现在你看到我了</p>
+</div>
+```
+```
+const app3 = new Vue({
+  el: '#app-3',
+  data: {
+    seen: true
+  }
+})
+```
+列表渲染：
+
+```
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+</div>
+```
+```
+const app4 = new Vue({
+  el: '#app-4',
+  data: {
+    todos: [
+      { text: '学习 JavaScript' },
+      { text: '学习 Vue' },
+      { text: '整个牛项目' }
+    ]
+  }
+})
+```
+监听点击事件：
+```
+<div id="app-5">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">逆转消息</button>
+</div>
+```
+```
+const app5 = new Vue({
+  el: '#app-5',
+  data: {
+    message: 'Hello Vue.js!'
+  },
+  methods: {
+    reverseMessage: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+  }
+})
+```
+处理用户输入：
+
+```
+<div id="app-6">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+```
+```
+const app6 = new Vue({
+  el: '#app-6',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+```
+组件定义：
+```
+Vue.component('todo-item', {
+  template: '<li>这是个待办项</li>'
+})
+```
+组件使用：
+
+```
+<ol>
+  <!-- 创建一个 todo-item 组件的实例 -->
+  <todo-item></todo-item>
+</ol>
+```
+组件传递属性：
+
+```
+<div id="app-7">
+  <ol>
+    <!--
+      现在我们为每个 todo-item 提供 todo 对象
+      todo 对象是变量，即其内容可以是动态的。
+      我们也需要为每个组件提供一个“key”，稍后再
+      作详细解释。
+    -->
+    <todo-item
+      v-for="item in groceryList"
+      v-bind:todo="item"
+      v-bind:key="item.id"
+    ></todo-item>
+  </ol>
+</div>
+
+Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+})
+
+const app7 = new Vue({
+  el: '#app-7',
+  data: {
+    groceryList: [
+      { id: 0, text: '蔬菜' },
+      { id: 1, text: '奶酪' },
+      { id: 2, text: '随便其它什么人吃的东西' }
+    ]
+  }
+})
+```
+demo 代码地址：https://github.com/kobefaith/fullStackWay/tree/master/03-Vue基础/vue_basic_demo 
+##  总结：
+本文主要讲解了vue框架的基本概念和基本使用方法，后面的文章会详细讲解vue的更多高级用法，欢迎关注。
