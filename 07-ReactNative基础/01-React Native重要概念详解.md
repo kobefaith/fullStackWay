@@ -31,8 +31,9 @@ this.state.likes = 100; // 这样的直接赋值修改无效！
 setState 是一个 merge 合并操作，只修改指定属性，不影响其他属性
 setState 是异步操作，修改不会马上生效
  ```
- 
- ```
+我们来做一个显示时间的demo，每隔一秒钟就让显示时间加一，做法就是每隔一秒调用setState来修改组件的state，然后触发重新渲染，显示加一后的时间。
+
+```
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 
@@ -70,5 +71,88 @@ export default class TimerApp extends Component {
     );
   }
 }
+
 ```
+
+## 样式
+RN中的样式与css中的略有不同，需要使用驼峰命名，比如将background-color改为backgroundColor。style的定义需要使用StyleSheet.create 来实现。
+
+```
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, View } from 'react-native';
+
+export default class LotsOfStyles extends Component {
+  render() {
+    return (
+      <View>
+        <Text style={styles.red}>just red</Text>
+        <Text style={styles.bigBlue}>just bigBlue</Text>
+        <Text style={[styles.bigBlue, styles.red]}>bigBlue, then red</Text>
+        <Text style={[styles.red, styles.bigBlue]}>red, then bigBlue</Text>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  view: {
+    marginTop: 30,
+    marginLeft:20
+  },
+  bigBlue: {
+    color: 'blue',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  red: {
+    color: 'red',
+  },
+});
+``` 
+
+## 宽度与高度
+最简单的给组件设定尺寸的方式就是在样式中指定固定的width和height。React Native 中的尺寸都是无单位的，表示的是与设备像素密度无关的逻辑像素点。
+
+```
+import React, { Component } from 'react';
+import { AppRegistry, View } from 'react-native';
+
+export default class FixedDimensionsBasics extends Component {
+  render() {
+    return (
+      <View>
+        <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
+        <View style={{width: 100, height: 100, backgroundColor: 'skyblue'}} />
+        <View style={{width: 150, height: 150, backgroundColor: 'steelblue'}} />
+      </View>
+    );
+  }
+}
+```
+在组件样式中使用flex可以使其在可利用的空间中动态地扩张或收缩。一般而言我们会使用flex:1来指定某个组件扩张以撑满所有剩余的空间。如果有多个并列的子组件使用了flex:1，则这些子组件会平分父容器中剩余的空间。如果这些并列的子组件的flex值不一样，则谁的值更大，谁占据剩余空间的比例就更大（即占据剩余空间的比等于并列组件间flex值的比）。
+
+```
+import React, { Component } from 'react';
+import { AppRegistry, View } from 'react-native';
+
+export default class FlexDimensionsBasics extends Component {
+  render() {
+    return (
+      // 试试去掉父View中的`flex: 1`。
+      // 则父View不再具有尺寸，因此子组件也无法再撑开。
+      // 然后再用`height: 300`来代替父View的`flex: 1`试试看？
+      <View style={{flex: 1}}>
+        <View style={{flex: 1, backgroundColor: 'powderblue'}} />
+        <View style={{flex: 2, backgroundColor: 'skyblue'}} />
+        <View style={{flex: 3, backgroundColor: 'steelblue'}} />
+      </View>
+    );
+  }
+}
+```
+## FlexBox布局
+
+
+
+
 
