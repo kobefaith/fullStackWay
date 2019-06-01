@@ -74,6 +74,7 @@ export default class HelloWorldApp extends Component {
   }
 }
 ```
+
 ## 总结
 本文主要讲解了React Native的功能、开发环境搭建以及HelloWorld demo项目的创建和运行方法。接下来将继续讲解基本组件的使用方法，欢迎关注。
 
