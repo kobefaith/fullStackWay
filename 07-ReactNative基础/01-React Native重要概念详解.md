@@ -427,7 +427,7 @@ ws.onclose = (e) => {
   console.log(e.code, e.reason);
 };
 ```
-demo代码地址：
+demo代码地址：https://github.com/kobefaith/fullStackWay/tree/master/07-ReactNative基础/BasciDemo
 ## 总结
 本文主要讲解了ReactNative中的 属性、状态、样式、高度、FlexBox布局等重要的概念，并给出了相应的demo代码。掌握了这些重要的概念，就可以开始React Native开发之旅了。
 
