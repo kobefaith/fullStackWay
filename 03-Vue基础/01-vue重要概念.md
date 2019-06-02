@@ -1,20 +1,46 @@
 ## 前言
-Vue.observable( object )  
-让一个对象可响应。Vue 内部会用它来处理 data 函数返回的对象。
-
-返回的对象可以直接用于渲染函数和计算属性内，并且会在发生改变时触发相应的更新。也可以作为最小化的跨组件状态存储器，用于简单的场景：  
+本文主要讲解vue中的实例和生命周期、模版、计算属性、class绑定的重要概念及相关的demo代码。
+## vue实例及生命周期
+vue实例的创建方法：  
 
 ```
-const state = Vue.observable({ count: 0 })
+var vm = new Vue({
+  // 选项
+})
+```
+一个 Vue 应用由一个通过 new Vue 创建的根 Vue 实例，以及可选的嵌套的、可复用的组件树组成。每一个vue的组件都是一个vue的实例。  
+每一个实例都有一系列的生命周期函数，也就是实例创建和运行的过程中各个时间节点上的钩子函数。
+vue生命周期主要分为三个阶段：创建阶段，更新阶段和销毁阶段。
+![avatar](./img/life.jpeg)  
+其中创建阶段的created 和mounted阶段一般用来请求和处理后端返回的数据。销毁阶段的beforeDestory阶段一般用来销毁资源，比如定时器的句柄等。
+## 模版语法
+Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。所有 Vue.js 的模板都是合法的 HTML ，所以能被遵循规范的浏览器和 HTML 解析器解析。  
+模版最终会被解析为js的对象来执行。vue除了支持模版外，还支持jsx的形式。  
+模版中显示文本的写法：  
 
-const Demo = {
-  render(h) {
-    return h('button', {
-      on: { click: () => { state.count++ }}
-    }, `count is: ${state.count}`)
-  }
-}
-``` 
-注意： 
-在 Vue 2.x 中，被传入的对象会直接被 Vue.observable 改变，所以如这里展示的，它和被返回的对象是同一个对象。在 Vue 3.x 中，则会返回一个可响应的代理，而对源对象直接进行修改仍然是不可响应的。因此，为了向前兼容，我们推荐始终操作使用 Vue.observable 返回的对象，而不是传入源对象。
+```
+<span>Message: {{ msg }}</span>
+```
+如果想直接显示html代码，可以使用v-html指令，不过可能存在xss攻击，一般不建议使用。
+
+```
+<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+```
+如果想绑定动态的数据，可以使用v-bind指令：
+
+```
+<div v-bind:id="dynamicId"></div>
+```
+vue中有一些列的指令来方便开发，带有 v- 前缀的特殊特性是指令。比如：v-if：
+
+```
+<p v-if="seen">现在你看到我了</p>
+```
+当seen为true时p标签会被渲染，为false的时候不会被渲染。  
+v-on指令用来绑定处理函数：
+
+```
+<a v-on:click="doSomething">...</a>
+```	
+		
 

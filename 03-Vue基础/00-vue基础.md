@@ -83,7 +83,8 @@ const app4 = new Vue({
   }
 })
 ```
-监听点击事件：
+监听点击事件：  
+
 ```
 <div id="app-5">
   <p>{{ message }}</p>
@@ -119,13 +120,14 @@ const app6 = new Vue({
   }
 })
 ```
-组件定义：
+组件定义：  
+
 ```
 Vue.component('todo-item', {
   template: '<li>这是个待办项</li>'
 })
 ```
-组件使用：
+组件使用：  
 
 ```
 <ol>
