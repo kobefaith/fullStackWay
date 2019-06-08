@@ -304,7 +304,7 @@ methods: {
 ```   
 
 ## vuex使用demo
-以下是用vuex实现
+下面我们用vuex实现一个简单的点击加一功能的状态管理。我们可以看到 state中存储的是计数的值，mutation中是让count加1的函数，action中是带有异步操作的修改state的功能，也是通过提交mutation来实现的。getter中是count值翻倍的一个计算属性。
 
 ```
 import Vue from 'vue'
@@ -343,3 +343,6 @@ new Vue({
 }).$mount('#app')
 
 ```
+完整demo代码：https://github.com/kobefaith/fullStackWay/tree/master/03-Vue基础/vuex-demo
+## 总结
+在大型的vue前端应用中，vuex几乎是不可或缺的一部分。熟练掌握vuex的使用可以提升工作效率，方便组件之间的通信。在面试中也是一个加分项。希望大家都能掌握好vuex的使用。
