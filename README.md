@@ -10,7 +10,8 @@
 09-Webpack基础  【更新完毕】  
 10-Webpack原理  【更新完毕】  
 07-ReactNative基础  
-15-快应用开发
+15-快应用开发  
+16-docker基础
 
 想学习更多的前端和全栈知识，可以关注微信公众号:飞语者说 ，也可以加入知识星球： 飞语者说。
 <img src="https://mmbiz.qpic.cn/mmbiz_jpg/gg5DfJI3s9g0VMNoWNcbVnFa2WicACCqtZD86whMjQJ1XAFoQczicmEbz7rb7CU2DO92RWib9hNugmINAuU7uWMOQ/0?wx_fmt=jpeg" width=256 height=256 />
