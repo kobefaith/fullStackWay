@@ -153,15 +153,165 @@ store.dispatch({
 })
 ```
 ### Module
+当应用的规模变大时，store也会变的很大很复杂。vue提供了module的方式，可以把一个大的store拆分为很多模块，每个模块都用自己的state、mutation、action、getter。  
+比如像下面这种：
+
+```
+const moduleA = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... },
+  getters: { ... }
+}
+
+const moduleB = {
+  state: { ... },
+  mutations: { ... },
+  actions: { ... }
+}
+
+const store = new Vuex.Store({
+  modules: {
+    a: moduleA,
+    b: moduleB
+  }
+})
+
+store.state.a // -> moduleA 的状态
+store.state.b // -> moduleB 的状态
+```
+每个模块内部的mutation和getter接收的第一个参数是本模块自己的局部state，根节点的state是rootState：  
+
+```
+const moduleA = {
+  // ...
+  actions: {
+    incrementIfOddOnRootSum ({ state, commit, rootState }) {
+      if ((state.count + rootState.count) % 2 === 1) {
+        commit('increment')
+      }
+    }
+  },
+  getters: {
+    sumWithRootCount (state, getters, rootState) {
+      return state.count + rootState.count
+    }
+  }
+}
+```
+拆分为模块后，默认情况下各个模块的action mutation和getter是注册在全局命名空间的。可以添加命名空间来使其成为局部注册的。 这样做以后，如果想访问全局的state和getter需要使用rootState 和rootGetter参数，如果想要在全局命名空间内分发action或者提交mutation需要给dispatch或commit传递{ root: true } 的参数：
+
+```
+modules: {
+  foo: {
+    namespaced: true,
+
+    getters: {
+      // 在这个模块的 getter 中，`getters` 被局部化了
+      // 你可以使用 getter 的第四个参数来调用 `rootGetters`
+      someGetter (state, getters, rootState, rootGetters) {
+        getters.someOtherGetter // -> 'foo/someOtherGetter'
+        rootGetters.someOtherGetter // -> 'someOtherGetter'
+      },
+    },
+    actions: {
+      // 在这个模块中， dispatch 和 commit 也被局部化了
+      // 他们可以接受 `root` 属性以访问根 dispatch 或 commit
+      someAction ({ dispatch, commit, getters, rootGetters }) {       
+        dispatch('someOtherAction') // -> 'foo/someOtherAction'
+        dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
+        commit('someMutation') // -> 'foo/someMutation'
+        commit('someMutation', null, { root: true }) // -> 'someMutation'
+      },
+    }
+  }
+}
+```
+模块也可以使用store.registerModule 动态注册： 
+
+```
+// 注册模块 `myModule`
+store.registerModule('myModule', {
+  // ...
+})
+// 注册嵌套模块 `nested/myModule`
+store.registerModule(['nested', 'myModule'], {
+  // ...
+})
+```
+## map系列函数
+在使用state 、getter 、action的时候vuex为我们提供了一些很方便的映射函数：  
+mapState 函数可以将state映射为计算属性。
+
+```
+// 在单独构建的版本中辅助函数为 Vuex.mapState
+import { mapState } from 'vuex'
+
+export default {
+  // ...
+  computed: mapState({
+    // 箭头函数可使代码更简练
+    count: state => state.count,
+
+    // 传字符串参数 'count' 等同于 `state => state.count`
+    countAlias: 'count',
+
+    // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+    countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+  })
+}
+```
+mapGetters 辅助函数可以是将 store 中的 getter 映射到局部计算属性：  
+
+```
+ computed: {   
+    ...mapGetters('cart', {
+      products: 'cartProducts',
+      total: 'cartTotalPrice'
+    }),
+ },
+```
+如果不用mapGetters，就需要用下面的写法：
+  
+```
+ computed: {     
+     products() {
+       return this.$store.getters['cart/cartProducts']
+     },
+     total() {
+       return this.$store.getters['cart/cartTotalPrice']
+     }
+  },
+```
+mapActions 辅助函数将组件的 methods 映射为 store.dispatch 调用:  
+
+```
+ methods: mapActions('cart', [
+    'addProductToCart'
+  ]),
+```
+如果不用mapActions，需要用下面的写法：  
+
+```
+methods: {
+     addProductToCart(product){
+       this.$store.dispatch('cart/addProductToCart', product)
+     }
+   },
+```   
 
 ## vuex使用demo
+以下是用vuex实现
+
 ```
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'
 
 Vue.use(Vuex)
-Vue.config.productionTip = false
 
 const store = new Vuex.Store({
   state: {
