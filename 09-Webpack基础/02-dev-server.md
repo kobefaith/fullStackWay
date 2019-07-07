@@ -2,7 +2,25 @@
 本文主要讲解webpack dev server的使用实例。
 ##基本概念
 ContentBase：指定请求的资源路径。也就是告诉服务器从哪里提供内容。默认是运行webpack-dev-server的路径。  
-热加载：为 webpack-dev-server 开启 HMR 模式只需要在命令行中添加--hot，它会将 HotModuleReplacementPlugin 这个插件添加到 webpack 的配置中去。  
+热加载：为 webpack-dev-server 开启 HMR 模式只需要在命令行中添加--hot，它会将 HotModuleReplacementPlugin 这个插件添加到 webpack 的配置中去。   
+webpack的reload和热更新不一样，热更新不刷新浏览器，reload刷新浏览器，会导致页面状态改变。
+js文件默认使用reload，html，css默认是热更新。如果要使js文件也是用热更新，那么需要这样配置：  
+   
+```
+devServer:{
+  port:9002,
+  overlay:true, //  报错的时候会出现黑色的浮层提示。
+  hot:true,
+  hotOnly:true, // 禁止js的reload。 
+
+}
+```
+js文件中需要加上如下的代码，才能在关闭reload的情况下使用热更新：
+
+```
+module.hot.accept();
+```
+热更新的原理：webpack通过node的fs.watch来监听文件变化，通过websocket来通知express，然后express来通过http长链接通知客户端。客户端收到通知后发送ajax请求来获取新的模块。  
 proxy代理：webpack-dev-server 使用 http-proxy-middleware 去把请求代理到一个外部的服务器。前端开发模式的时候如果遇到跨域的请求，可以用proxy的配置来解决。  
 
 ```
@@ -10,8 +28,11 @@ proxy代理：webpack-dev-server 使用 http-proxy-middleware 去把请求代理
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://backendserver.com',
-        secure: false
+        target: 'https://m.ppsport.com', // 请求只写 /msite/match/getLiveMatchList.htm
+          changeOrigin:true, 
+          pathRewrite: {
+            "^/msite":'/msite/match/getLiveMatchList.htm',// 把请求中的msite 替换为后面的路径
+          }
       }
     }
   }
@@ -76,7 +97,38 @@ npm install webpack-dev-server -g
     "start": "webpack-dev-server --inline --hot --port 3000 --content-base public",    
   },
 ```
-其中 --hot是开启热更新模式，在代码变化的时候重新打包，并刷新浏览器中的页面。实现的原理是使用websocket 来实现页面和dev server的通信，然后在代码发生变化的时候，通过websocket来通知页面重新加载。
+其中 --hot是开启热更新模式，在代码变化的时候重新打包，并刷新浏览器中的页面。实现的原理是使用websocket 来实现页面和dev server的通信，然后在代码发生变化的时候，通过websocket来通知页面重新加载。  
+为了更好的可定制化，一般是用express来自己搭建dev server：
+
+```
+const express = require('express');
+const webpack = require('webpack');
+const proxyMiddleware = require('http-proxy-middleware');
+const devMiddleware = require('webpack-dev-middleware');
+const hotMiddleware = require('webpack-hot-middleware');
+const webpackConfig = require('../webpack.config.js');
+const app = express();
+Object.keys(webpackConfig.entry).forEach(name => {
+  webpackConfig.entry[ name ] = [ 'webpack-hot-middleware/client?noInfo=true&reload=true' ].concat(webpackConfig.enrty[ name ]);
+});
+const compiler = webpack(webpackConfig)
+
+
+app.use(devMiddleware(
+  compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    quiet: true
+   })
+); 
+app.use(hotMiddleware(
+  compiler, {
+    overlayStyles:true,
+  })
+);
+app.listen(7000);
+```
+
+
 ## 总结
 本文讲解了webpack-dev-server 中一些核心的概念和主要配置选项，如 contentBase、publicPath、proxy 代理、historyApiFallback、lazyLoad 等。另外介绍了基本的使用方法和热更新的原理。
 
