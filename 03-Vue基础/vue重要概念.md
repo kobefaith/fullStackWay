@@ -105,7 +105,11 @@ render(h,context){
    const {props,scopedSlots}=context;
    return check(props.authority)?scopedSlots.default():null;
 }
-```
+```  
+
+指令的形式   
+![avatar](./img/direct.jpeg)  
+
 
 
 
