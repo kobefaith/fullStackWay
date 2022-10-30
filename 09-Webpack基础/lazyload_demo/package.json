@@ -9,7 +9,7 @@
     "build": "NODE_ENV=production webpack --config ./webpack.config.js --progress --env.prod"
   },
   "dependencies": {
-    "browser-sync": "^2.18.5",
+    "browser-sync": "^2.27.10",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^1.1.5",
